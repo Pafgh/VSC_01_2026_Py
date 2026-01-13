@@ -87,3 +87,36 @@ git push -u all master
 **¿Qué hace esto?**
 *   `-u` (upstream): Le dice a git que a partir de ahora, cuando estés en la rama `master` (o `main`), su "pareja" en la nube es el remoto `all`.
 *   Esto habilita el botón de la interfaz de VS Code. Ahora, al hacer clic en **"Sync Changes"** o **"Push"**, Git enviará tu código a GitHub y GitLab simultáneamente sin que tengas que escribir comandos.
+
+## 4. Clonado en un Ordenador Nuevo (Importante)
+
+**LA CONFIGURACIÓN GIT ES LOCAL.**
+La configuración de los remotos (el grupo 'all', etc.) se guarda en el archivo oculto `.git/config` de tu máquina. Este archivo **NO** viaja con tu código a la nube.
+
+Si clonas este repositorio en un ordenador nuevo, al principio solo tendrás el remoto `origin` (del que clonaste).
+
+**Pasos para restaurar la configuración multi-remoto en un ordenador nuevo:**
+
+1.  **Clona el repositorio** (usando cualquiera de los dos, ej. GitHub):
+    ```bash
+    git clone https://github.com/Usuario/Repositorio.git
+    cd Repositorio
+    ```
+    *(En este momento, si haces `git remote -v`, solo verás 'origin')*
+
+2.  **Ejecuta el script de configuración**:
+    Debes volver a ejecutar manualmente los comandos del "Paso 2" de esta guía para recrear el remoto `all`.
+
+    *Resumen rápido para copiar-pegar (reemplaza las URLs por las tuyas):*
+    ```bash
+    # 1. Añadir el otro remoto (el que te falte, ej. gitlab)
+    git remote add gitlab https://gitlab.com/Usuario/Repositorio.git
+
+    # 2. Recrear el grupo 'all'
+    git remote add all https://github.com/Usuario/Repositorio.git
+    git remote set-url --add --push all https://gitlab.com/Usuario/Repositorio.git
+    git remote set-url --add --push all https://github.com/Usuario/Repositorio.git
+
+    # 3. Reconectar la rama master (para que el botón Sync funcione)
+    git push -u all master
+    ```
