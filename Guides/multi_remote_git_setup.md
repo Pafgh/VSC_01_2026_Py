@@ -73,3 +73,17 @@ Para ver a dónde apunta cada remoto:
 git remote -v
 ```
 Deberías ver que `all` tiene dos líneas `(push)`.
+
+## 3. Configuración para VS Code (Botón Sync)
+
+Para poder usar el botón de "Sync/Push" (la flecha circular) en la interfaz gráfica de VS Code y que envíe los cambios a **ambos sitios automáticamente**, debes configurar la rama para que `all` sea su destino predeterminado.
+
+Ejecuta este comando **una sola vez**:
+
+```bash
+git push -u all master
+```
+
+**¿Qué hace esto?**
+*   `-u` (upstream): Le dice a git que a partir de ahora, cuando estés en la rama `master` (o `main`), su "pareja" en la nube es el remoto `all`.
+*   Esto habilita el botón de la interfaz de VS Code. Ahora, al hacer clic en **"Sync Changes"** o **"Push"**, Git enviará tu código a GitHub y GitLab simultáneamente sin que tengas que escribir comandos.
