@@ -20,9 +20,10 @@ git remote add gitlab https://gitlab.com/Usuario/Repositorio.git
 ### Paso 2: Crear el Remoto "All" (Todo)
 Creamos un grupo lógico llamado `all` que agrupe ambos. La técnica consiste en crear un remoto y añadirle múltiples URLs de "push".
 
-1. Crear el remoto apuntando al primero (ej. GitHub):
+1. Crear el remoto apuntando al repositorio principal (ej. GitLab):
+   *Este será el repositorio desde el que se descargarán los cambios por defecto.*
    ```bash
-   git remote add all https://github.com/Usuario/Repositorio.git
+   git remote add all https://gitlab.com/Usuario/Repositorio.git
    ```
 
 2. Añadir la segunda URL (GitLab) al mismo remoto para PUSH:
@@ -54,11 +55,16 @@ git push all master
 *(Nota: Usa `main` en lugar de `master` si esa es tu rama principal)*
 
 ### Descargar Cambios (Pull)
-**Importante:** No puedes hacer "pull" de dos sitios a la vez "mezclados". Debes decidir cuál es tu fuente de verdad principal para descargar, o bajarlos individualmente.
+**Importante:** Cuando ejecutas `git pull all`, Git descargará los cambios del repositorio que configuraste al crear el remoto `all` (en este caso, GitLab).
 
-Lo normal es bajar de uno (por ejemplo github):
+**Recomendación sobre Colaboradores:**
+Es crucial que el `fetch` (descarga) apunte al repositorio donde trabajan los **colaboradores** activos. Si otros usuarios suben código a GitLab, tú debes descargar de GitLab; de lo contrario, no recibirás sus cambios y podrías generar **inconsistencias** o conflictos graves en el historial al intentar subir tu código.
+
+Para descargar:
 ```bash
-git pull github master
+git pull all master
+# O explícitamente del remoto principal
+git pull gitlab master
 ```
 
 O si quieres sincronizar ambos manualmente:
@@ -112,8 +118,8 @@ Si clonas este repositorio en un ordenador nuevo, al principio solo tendrás el 
     # 1. Añadir el otro remoto (el que te falte, ej. gitlab)
     git remote add gitlab https://gitlab.com/Usuario/Repositorio.git
 
-    # 2. Recrear el grupo 'all'
-    git remote add all https://github.com/Usuario/Repositorio.git
+    # 2. Recrear el grupo 'all' (Apuntando el fetch a GitLab)
+    git remote add all https://gitlab.com/Usuario/Repositorio.git
     git remote set-url --add --push all https://gitlab.com/Usuario/Repositorio.git
     git remote set-url --add --push all https://github.com/Usuario/Repositorio.git
 

@@ -14,8 +14,9 @@ Ejecuta estos 4 pasos en la carpeta de tu proyecto (sustituye las URLs por las t
 # 1. Conectar el nuevo remoto de GitLab
 git remote add gitlab https://gitlab.com/Usuario/NuevoRepo.git
 
-# 2. Crear el grupo de sincronización 'all' (Base: tu GitHub actual)
-git remote add all https://github.com/Usuario/RepoOriginal.git
+# 2. Crear el grupo de sincronización 'all' (Base: GitLab)
+# Importante: Usamos GitLab como base para recibir los cambios de colaboradores desde allí.
+git remote add all https://gitlab.com/Usuario/NuevoRepo.git
 
 # 3. Configurar 'all' para que apunte a los dos sitios
 git remote set-url --add --push all https://gitlab.com/Usuario/NuevoRepo.git
